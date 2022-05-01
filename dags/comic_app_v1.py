@@ -5,7 +5,7 @@ from airflow.operators.python_operator import PythonOperator
 
 default_args = {
     'owner': 'Meng Lee',
-    'start_date': datetime(2100, 1, 1, 0, 0),
+    'start_date': datetime(2200, 1, 1, 0, 0),
     'schedule_interval': '@daily',
     'retries': 2,
     'retry_delay': timedelta(minutes=1)

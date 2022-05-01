@@ -1,6 +1,38 @@
 {
   "1152": {
     "name": "海賊王",
-    "previous_chapter_num": 900
+    "prev_vol_num": 1047,
+    "latest_vol_num": 1047,
+    "latest_vol_available": true
+  },
+  "2764": {
+    "name": "境界觸發者",
+    "prev_vol_num": 222,
+    "latest_vol_num": 222,
+    "latest_vol_available": true
+  },
+  "4085": {
+    "name": "我的英雄學院",
+    "prev_vol_num": 351,
+    "latest_vol_num": 351,
+    "latest_vol_available": true
+  },
+  "7654": {
+    "name": "咒術迴戰",
+    "prev_vol_num": 182,
+    "latest_vol_num": 182,
+    "latest_vol_available": true
+  },
+  "8206": {
+    "name": "拳願奧米迦",
+    "prev_vol_num": 156,
+    "latest_vol_num": 156,
+    "latest_vol_available": true
+  },
+  "4566": {
+    "name": "鑽石王牌",
+    "prev_vol_num": 121,
+    "latest_vol_num": 121,
+    "latest_vol_available": false
   }
 }
