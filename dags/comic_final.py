@@ -1,12 +1,12 @@
 import os
 import json
 import time
-from selenium import webdriver
+import requests
+#from selenium import webdriver
 from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator, BranchPythonOperator
 from airflow.operators.dummy_operator import DummyOperator
-from airflow.operators.slack_operator import SlackAPIPostOperator
 from airflow.contrib.operators.slack_webhook_operator import SlackWebhookOperator
 from airflow.hooks.base_hook import BaseHook
 from airflow.operators.latest_only_operator import LatestOnlyOperator
@@ -14,7 +14,7 @@ default_args = {
     'owner': 'Feng Jim',
     'start_date': datetime(2022, 4, 29, 0, 0),
     'schedule_interval': '@daily',
-    'retries': 5,
+    'retries': 1,
     'retry_delay': timedelta(seconds=30)
 }
 
@@ -45,7 +45,7 @@ def check_comic_info(**context):
     print("Arrived the Home page")
 
     all_comic_info = metadata
-    anyting_new = False
+    anything_new = False
     for comic_id, comic_vol in dict(all_comic_info).items():
         comic_name = comic_vol['name']
         print("Searching comic {} list".format(comic_name))
@@ -62,7 +62,7 @@ def check_comic_info(**context):
         if all_comic_info[comic_id]['latest_vol_available']:
             anything_new = True
             print("There is an new volume for {}(latest:{})".format(comic_name, latest_vol))
-
+    
     if not anything_new:
         print("Nothing new")
 
