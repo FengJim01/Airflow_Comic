@@ -2,6 +2,7 @@ import os
 import json
 import time
 import requests
+from bs4 import BeautifulSoup
 #from selenium import webdriver
 from datetime import datetime, timedelta
 from airflow import DAG
@@ -40,21 +41,20 @@ def process_metadata(mode, **context):
 
 def check_comic_info(**context):
     metadata = context['task_instance'].xcom_pull(task_ids='get_read_history')
-    driver = webdriver.Chrome()
-    driver.get("https://www.cartoonmad.com/")
-    print("Arrived the Home page")
 
     all_comic_info = metadata
     anything_new = False
     for comic_id, comic_vol in dict(all_comic_info).items():
         comic_name = comic_vol['name']
         print("Searching comic {} list".format(comic_name))
-        driver.get(comic_website_template.format(comic_id))
+        response = requests.get(comic_website_template.format(comic_id))
+        respons.encoding = 'big5'
+        soup = BeautifulSoup(response.text, "html.parser")
 
         # search the latest volume
         # the latest volume in the last one
-        links = driver.find_elements_by_partial_link_text('第')
-        latest_vol = [int(i) for i in links[-1].text.split() if i.isdigit()][0]
+        links = soup.find_all("a",target="_blank")
+        latest_vol = [int(i.getText()[1:-2]) for i in links if "第" in i][-1]
         pre_vol_num = comic_vol['prev_vol_num']
 
         all_comic_info[comic_id]['latest_vol_num'] = latest_vol
